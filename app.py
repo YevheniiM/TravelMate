@@ -3,7 +3,7 @@ from pymessenger.bot import Bot
 from flask import Flask, request
 
 from game_core.progress import Progress
-from helpers.constants import ACCESS_TOKEN
+from helpers.secret_constants import ACCESS_TOKEN
 from game_core.logic_parts import greeting_part
 from helpers.facebook_api import verify_fb_token, send_message
 from helpers.client_api import check_get_started, check_user_info

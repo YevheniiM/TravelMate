@@ -1,4 +1,4 @@
-from helpers.constants import VERIFY_TOKEN
+from helpers.secret_constants import VERIFY_TOKEN
 
 
 def verify_fb_token(request, token_sent):
