@@ -1,6 +1,6 @@
 import dialogflow_v2 as dialogflow
 from google.oauth2 import service_account
-from helpers.constants import PROJECT_ID, KEY_FILE
+from helpers.secret_constants import PROJECT_ID, KEY_FILE
 
 credentials = service_account.Credentials.from_service_account_file(KEY_FILE)
 

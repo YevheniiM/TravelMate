@@ -1,5 +1,6 @@
 from game_core.client import Client
 from helpers.facebook_api import send_message
+from helpers.bot_responses import GREETING_RESPONSE_4
 
 
 def get_client(client_id, clients):
@@ -7,6 +8,7 @@ def get_client(client_id, clients):
 
     Creates new client if it doesn't exist.
 
+    :param clients: [dict(
     :param client_id: [Int]
     :return: [Client]
 
@@ -21,15 +23,20 @@ def check_get_started(client, output, bot):
         if output['entry'][0]['messaging'][0]['postback']['payload'] == 'GET_STARTED_PAYLOAD':
             send_message(bot,
                          output['entry'][0]['messaging'][0]['sender']['id'],
-                         "Hey, {}! I am TravelMate, your adventure buddy wherever you go. "
-                         "I’m gonna help you explore new destinations in a playful way. You won't forget "
-                         "this trip! \n"
-                         "So... Nice to meet you! Are you ready to have some fun together?".format(client.first_name))
+                         GREETING_RESPONSE_4.format(client.first_name))
     except KeyError:
         pass
 
 
-def check_user_info(output, bot, clients):
+def process_current_client(output, bot, clients):
+    """The function get current client and fill the public info if
+    it has not been filled.
+
+    :param output:
+    :param bot:
+    :param clients:
+    :return:
+    """
     try:
         info = bot.get_user_info(output['entry'][0]['messaging'][0]['sender']['id'])
         current_client = get_client(info['id'], clients)

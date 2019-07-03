@@ -5,7 +5,7 @@ from game_core.progress import Progress
 from helpers.secret_constants import ACCESS_TOKEN
 from game_core.logic_parts import greeting_part
 from helpers.facebook_api import verify_fb_token, send_message
-from helpers.client_api import check_get_started, check_user_info
+from helpers.client_api import check_get_started, process_current_client
 
 clients = dict()
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def receive_message():
         return verify_fb_token(request, request.args.get("hub.verify_token"))
     else:
         output = request.get_json()
-        current_client = check_user_info(output, bot, clients)
+        current_client = process_current_client(output, bot, clients)
         check_get_started(current_client, output, bot)
 
         for event in output['entry']:

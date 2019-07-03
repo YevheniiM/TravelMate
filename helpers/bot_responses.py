@@ -7,5 +7,9 @@ GREETING_RESPONSE_2 = "Alright, let me explain you in a few words how our tours 
                       "about next one, and so on. " \
                       "Wanna start?"
 GREETING_RESPONSE_3 = "Sad to hear that, {}. But that’s not a problem! When would you like to carry on with this trip?"
+GREETING_RESPONSE_4 = "Hey, {}! I am TravelMate, your adventure buddy wherever you go. " \
+                      "I’m gonna help you explore new destinations in a playful way. You won't forget " \
+                      "this trip! \n" \
+                      "So... Nice to meet you! Are you ready to have some fun together?"
 
 HARD_TO_RECOGNIZE = "Sorry, I didn't understand. Can you ask me again? :)"
