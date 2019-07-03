@@ -1,4 +1,3 @@
-from pprint import pprint
 from pymessenger.bot import Bot
 from flask import Flask, request
 
