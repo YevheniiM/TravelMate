@@ -11,3 +11,4 @@ class Intents:
     """
     agreement = 'agreement'
     disagreement = 'disagreement'
+    default = 'Default Fallback Intent'

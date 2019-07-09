@@ -1,6 +1,8 @@
 from pymessenger.bot import Bot
 from flask import Flask, request
 
+from dialogflow.api import get_intent, get_fulfillment_message, get_intent_name, detect_query
+from dialogflow.intents import Intents
 from game_core.progress import Progress
 from helpers.secret_constants import ACCESS_TOKEN
 from game_core.logic_parts import greeting_part
@@ -32,15 +34,27 @@ def receive_message():
                         if not client_response:
                             return "There was not a client response"
 
+                        query = detect_query(current_client.session_id, client_response)
+                        intent_name = get_intent_name(query)
+                        fulfillment_text = get_fulfillment_message(query)
+
+                        from pprint import pprint
+                        pprint(intent_name)
+                        pprint(fulfillment_text)
+
+                        if intent_name == Intents.default or intent_name == "" or \
+                                intent_name == "Default Welcome Intent":
+                            send_message(bot, current_client.client_id, str(fulfillment_text))
+
                         if current_client.progress.value < Progress.tour_started.value:
-                            greeting_part(client=current_client, response=client_response, bot=bot)
+                            greeting_part(client=current_client, intent=get_intent(query), bot=bot)
                         else:
                             send_message(bot, current_client.client_id, "Tour has been already started.")
-            except KeyError:
-                pass
+            except KeyError as e:
+                print(e)
 
     return "Message Processed"
 
 
 if __name__ == "__main__":
-    app.run(port=5000)
+    app.run(port=8000)

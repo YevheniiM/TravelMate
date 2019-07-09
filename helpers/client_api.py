@@ -24,8 +24,8 @@ def check_get_started(client, output, bot):
             send_message(bot,
                          output['entry'][0]['messaging'][0]['sender']['id'],
                          GREETING_RESPONSE_4.format(client.first_name))
-    except KeyError:
-        pass
+    except KeyError as e:
+        print(e)
 
 
 def process_current_client(output, bot, clients):
@@ -43,5 +43,5 @@ def process_current_client(output, bot, clients):
         if not current_client.information_filled:
             current_client.fill_public_info(info['first_name'], info['last_name'], info['profile_pic'])
         return current_client
-    except KeyError:
-        pass
+    except KeyError as e:
+        print(e)

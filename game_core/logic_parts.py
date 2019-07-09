@@ -5,7 +5,7 @@ from helpers.facebook_api import send_message
 from helpers.bot_responses import GREETING_RESPONSE_1, GREETING_RESPONSE_2, GREETING_RESPONSE_3, HARD_TO_RECOGNIZE
 
 
-def greeting_part(client, response, bot):
+def greeting_part(client, intent, bot):
     """The function describes the greeting part of conversation with client.
 
     It starts the tour if user is agreed and if the user knows how to play
@@ -16,15 +16,12 @@ def greeting_part(client, response, bot):
     :param bot: [pymessenger.bot.Bot]
 
     """
-    intent = get_intent(client.session_id, response)
     if client.progress == Progress.are_you_ready_w:
         if intent == Intents.agreement:
             send_message(bot, client.client_id, GREETING_RESPONSE_1)
             client.update_progress(Progress.how_it_works_w)
         elif intent == Intents.disagreement:
             user_does_not_start_the_tour(client, bot)
-        else:
-            send_message(bot, client.client_id, HARD_TO_RECOGNIZE)
     elif client.progress == Progress.how_it_works_w:
         if intent == Intents.agreement:
             send_message(bot, client.client_id, "starting the tour...")
@@ -33,8 +30,6 @@ def greeting_part(client, response, bot):
         elif intent == Intents.disagreement:
             send_message(bot, client.client_id, GREETING_RESPONSE_2)
             client.update_progress(Progress.want_to_start)
-        else:
-            send_message(bot, client.client_id, HARD_TO_RECOGNIZE)
     elif client.progress == Progress.want_to_start:
         if intent == Intents.agreement:
             send_message(bot, client.client_id, "starting the tour...")
@@ -42,18 +37,14 @@ def greeting_part(client, response, bot):
             # TODO: starting the tour
         elif intent == Intents.disagreement:
             user_does_not_start_the_tour(client, bot)
-        else:
-            send_message(bot, client.client_id, HARD_TO_RECOGNIZE)
     elif client.progress == Progress.tour_does_not_start:
         if intent == Intents.agreement:
             send_message(bot, client.client_id, "starting the tour...")
             client.update_progress(Progress.tour_started)
         elif intent == Intents.disagreement:
             user_does_not_start_the_tour(client, bot)
-        else:
-            send_message(bot, client.client_id, HARD_TO_RECOGNIZE)
 
 
 def user_does_not_start_the_tour(client, bot):
-    send_message(bot, client.client_id, GREETING_RESPONSE_3.format(client.name))
+    send_message(bot, client.client_id, GREETING_RESPONSE_3.format(client.first_name))
     client.update_progress(Progress.tour_does_not_start)
