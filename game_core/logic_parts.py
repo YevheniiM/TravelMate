@@ -16,15 +16,11 @@ def greeting_part(client, intent, bot):
     :param bot: [pymessenger.bot.Bot]
 
     """
-    print(intent)
     if client.progress == Progress.are_you_ready_w:
-        print('1')
         if intent == Intents.agreement:
-            print('2')
             send_message(bot, client.client_id, GREETING_RESPONSE_1)
             client.update_progress(Progress.how_it_works_w)
         elif intent == Intents.disagreement:
-            print('3')
             user_does_not_start_the_tour(client, bot)
     elif client.progress == Progress.how_it_works_w:
         if intent == Intents.agreement:
