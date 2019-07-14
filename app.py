@@ -47,7 +47,7 @@ def receive_message():
                             send_message(bot, current_client.client_id, str(fulfillment_text))
 
                         if current_client.progress.value < Progress.tour_started.value:
-                            greeting_part(client=current_client, intent=get_intent(query), bot=bot)
+                            greeting_part(client=current_client, intent=get_intent(query).display_name, bot=bot)
                         else:
                             send_message(bot, current_client.client_id, "Tour has been already started.")
             except KeyError as e:
