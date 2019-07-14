@@ -42,11 +42,10 @@ def receive_message():
                         pprint(intent_name)
                         pprint(fulfillment_text)
 
-                        if intent_name == Intents.default or intent_name == "" or \
-                                intent_name == "Default Welcome Intent":
+                        if intent_name == Intents.default or intent_name == "" or intent_name == "Default Welcome Intent":
                             send_message(bot, current_client.client_id, str(fulfillment_text))
 
-                        if current_client.progress.value < Progress.tour_started.value:
+                        elif current_client.progress.value < Progress.tour_started.value:
                             greeting_part(client=current_client, intent=get_intent(query).display_name, bot=bot)
                         else:
                             send_message(bot, current_client.client_id, "Tour has been already started.")
